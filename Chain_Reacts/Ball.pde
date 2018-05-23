@@ -19,10 +19,4 @@ class Ball {
   xpos += xvel;
   ypos += yvel;
  }
- 
- float getX() {return xpos;}
- 
- float getY() {return ypos;}
- 
- color getC() {return c;}
 }
