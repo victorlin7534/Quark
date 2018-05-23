@@ -13,7 +13,7 @@ void draw() {
   background(0.0);
   for (Ball i:balls) {
    i.move();
-   ellipse(i.xpos,i.ypos,20,20);
+   ellipse(i.xpos,i.ypos,i.size,i.size);
    fill(i.c);
   }
 }

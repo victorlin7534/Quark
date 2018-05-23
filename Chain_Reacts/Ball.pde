@@ -4,18 +4,20 @@ class Ball {
  float ypos;
  float xvel;
  float yvel;
+ float size;
  
  Ball() {
-   xpos = random(0,600);
-   ypos = random(0,600);
    xvel = random(1,10);
    yvel = random(1,10);
    c = color((int) random(0,256),(int) random(0,256),(int) random(0,256));
+   size = random(5,150);
+   xpos = random(size,600-size);
+   ypos = random(size,600-size);
  }
  
  void move() {
-  if (xpos > 600 || xpos < 0) xvel = -xvel;
-  if (ypos > 600 || ypos < 0) yvel = -yvel;
+  if (xpos > 600-size || xpos < size) xvel = -xvel;
+  if (ypos > 600-size || ypos < size) yvel = -yvel;
   xpos += xvel;
   ypos += yvel;
  }
