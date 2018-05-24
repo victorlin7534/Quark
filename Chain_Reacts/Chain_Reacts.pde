@@ -1,39 +1,35 @@
-Ball[] balls;
-Ball[] cells = new Ball[10];
-int cellSize;
+import java.util.ArrayList;
+ArrayList<Ball> balls;
 
 void setup() {
   background(0.0);
   size(600,600);
-  balls = new Ball[(int) random(25,36)];//array of Ball instances
-  for (int i = 0; i < balls.length; i++) {
-   balls[i] = new Ball(); //instantiate Balls
+  balls = new ArrayList<Ball>();//List of Ball instances
+  int numBalls = (int) random(25,36);
+  for (int i = 0; i < numBalls; i++) {
+   balls.add(new Ball()); //instantiate Balls
   }
 }
 
 void draw() {
   background(0.0);
-  for (Ball i:balls) {//talks to each Ball
-   i.move(); //tell Ball to move
-   ellipse(i.xpos,i.ypos,i.size,i.size);//create Ball image
-   fill(i.c);//color the Ball
-  }
-  if(cellSize>0){
-    for(Ball j:cells){
-      if (j != null) {
-       j.change();
-       ellipse(j.xpos,j.ypos,j.size,j.size);
-       fill(j.c);
+  for (int i = balls.size()-1; i >= 0; i--) {//talks to each Ball
+   Ball current = balls.get(i);
+   if (current.state == 3) {balls.remove(i); continue;} //Remove Ball if dead
+   current.change(); //tell Ball to change
+   fill(current.c); //color the Ball
+   ellipse(current.xpos,current.ypos,current.size,current.size);//create Ball image
+   if (current.state == 0) {//If moving, check to see if touching other balls
+     for (Ball other:balls) {
+      if (other.state == 2 || other.state == 1) {//If touching a expanding/shrinking ball, expand
+        if (current.touching(other)) current.state = 1;
       }
-    }
+     }
+   }
   }
 }
 
 void mouseClicked(){
- cellSize++;
- if(cellSize>cells.length){
-   cells = (Ball[])expand(cells,cellSize);
- }
- cells[cellSize-1] = new Ball(mouseX,mouseY);
- cells[cellSize-1].state = 1;
+ balls.add(new Ball(mouseX,mouseY)); //Add new ball
+ balls.get(balls.size()-1).state = 1; //Set state to expanding
 }
