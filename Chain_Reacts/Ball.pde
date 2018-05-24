@@ -24,6 +24,12 @@ class Ball {
    ypos = random(size,600-size);
  }
  
+ Ball(float mxpos, float mypos){
+    this();
+    xpos = mxpos;
+    ypos = mypos;
+ }
+ 
  void move() {
   if (xpos > 600-size/2 || xpos < size/2) xvel = -xvel;//reverse direction if reach edge
   if (ypos > 600-size/2 || ypos < size/2) yvel = -yvel;

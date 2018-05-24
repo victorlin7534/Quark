@@ -1,4 +1,6 @@
 Ball[] balls;
+Ball[] cells = new Ball[10];
+int cellSize;
 
 void setup() {
   background(0.0);
@@ -16,4 +18,22 @@ void draw() {
    ellipse(i.xpos,i.ypos,i.size,i.size);//create Ball image
    fill(i.c);//color the Ball
   }
+  if(cellSize>0){
+    for(Ball j:cells){
+      if (j != null) {
+       j.change();
+       ellipse(j.xpos,j.ypos,j.size,j.size);
+       fill(j.c);
+      }
+    }
+  }
+}
+
+void mouseClicked(){
+ cellSize++;
+ if(cellSize>cells.length){
+   cells = (Ball[])expand(cells,cellSize);
+ }
+ cells[cellSize-1] = new Ball(mouseX,mouseY);
+ cells[cellSize-1].state = 1;
 }
